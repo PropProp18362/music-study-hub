@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Study Hub</title>
+    <meta name="description" content="Educational music platform for focused studying">
+    <meta name="keywords" content="study music, educational, focus, productivity">
+    
+    <!-- Spotify Configuration - Replace with your actual Client ID -->
+    <meta name="spotify-client-id" content="YOUR_SPOTIFY_CLIENT_ID">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Study Hub">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Security Headers for CIPP Compliance -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline' https://sdk.scdn.co https://accounts.spotify.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://api.spotify.com https://accounts.spotify.com wss://dealer.spotify.com;">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-spinner"></div>
+            <h2>Music Study Hub</h2>
+            <p>Loading your educational music platform...</p>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen" style="display: none;">
+            <div class="login-container">
+                <h1>🎵 Music Study Hub</h1>
+                <p class="subtitle">Educational Music Platform for Enhanced Learning</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <span class="icon">🎧</span>
+                        <span>Focus-enhancing playlists</span>
+                    </div>
+                    <div class="feature">
+                        <span class="icon">📚</span>
+                        <span>Study session tracking</span>
+                    </div>
+                    <div class="feature">
+                        <span class="icon">🧠</span>
+                        <span>Cognitive performance optimization</span>
+                    </div>
+                </div>
+                
+                <button id="login-btn" class="login-button">
+                    Connect Educational Account
+                </button>
+                
+                <div class="disclaimer">
+                    <p><small>This platform integrates with educational music services to enhance learning outcomes. Compliant with institutional policies.</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Player Screen -->
+        <div id="player-screen" class="screen" style="display: none;">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1>Study Hub</h1>
+                    <span class="study-mode">Focus Mode Active</span>
+                </div>
+                <div class="header-right">
+                    <button id="profile-btn" class="profile-btn">
+                        <span id="user-name">User</span>
+                    </button>
+                    <button id="logout-btn" class="logout-btn">Exit</button>
+                </div>
+            </header>
+
+            <!-- Current Track Display -->
+            <div class="current-track">
+                <div class="track-art">
+                    <img id="track-image" src="icons/default-album.png" alt="Album Art">
+                    <div class="play-overlay">
+                        <button id="play-pause-btn" class="play-btn">
+                            <span class="play-icon">▶️</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="track-info">
+                    <h2 id="track-name">Select a study playlist</h2>
+                    <p id="track-artist">Educational Music</p>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div id="progress" class="progress-fill"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time">0:00</span>
+                            <span id="total-time">0:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button id="prev-btn" class="control-btn">⏮️</button>
+                <button id="play-pause-main" class="control-btn main-play">⏸️</button>
+                <button id="next-btn" class="control-btn">⏭️</button>
+                <div class="volume-control">
+                    <span>🔊</span>
+                    <input type="range" id="volume-slider" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <!-- Study Playlists -->
+            <div class="playlists-section">
+                <h3>Educational Playlists</h3>
+                <div id="playlists-container" class="playlists-grid">
+                    <!-- Playlists will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Study Timer -->
+            <div class="study-timer">
+                <h3>Study Session</h3>
+                <div class="timer-display">
+                    <span id="timer">00:00</span>
+                    <button id="timer-toggle" class="timer-btn">Start Session</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Screen -->
+        <div id="error-screen" class="screen error-screen" style="display: none;">
+            <div class="error-container">
+                <h2>Connection Issue</h2>
+                <p id="error-message">Unable to connect to educational music service.</p>
+                <button id="retry-btn" class="retry-btn">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spotify Web Playback SDK -->
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
