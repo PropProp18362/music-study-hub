@@ -276,4 +276,4 @@ For additional help, create an issue in the repository with:
 
 ---
 
-**Made with ❤️ for students who need their music to focus and learn effectively.**
+**Made with ❤️ for students who need their music to focus and learn effectively.**# music-study-hub
