@@ -22,11 +22,10 @@ const SPOTIFY_CONFIG = {
     redirectUri: process.env.REDIRECT_URI || `http://localhost:${PORT}`
 };
 
-// Validate environment variables
+// Validate environment variables (warn only; do not exit in serverless)
 if (!SPOTIFY_CONFIG.clientId || !SPOTIFY_CONFIG.clientSecret) {
-    console.error('❌ Missing Spotify credentials in environment variables');
-    console.log('Please set SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET in .env file');
-    process.exit(1);
+    console.warn('⚠️ Missing Spotify credentials in environment variables (SPOTIFY_CLIENT_ID / SPOTIFY_CLIENT_SECRET).');
+    console.warn('Endpoints will return 500 until they are set. Configure them in Vercel Project → Settings → Environment Variables, or in a local .env file for dev.');
 }
 
 // Token exchange endpoint
@@ -152,18 +151,20 @@ app.use((error, req, res, next) => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`🎵 Music Study Hub server running on port ${PORT}`);
-    console.log(`📱 Open http://localhost:${PORT} in your browser`);
-    console.log(`🔧 Make sure to set up your Spotify app with redirect URI: http://localhost:${PORT}`);
-    
-    if (process.env.NODE_ENV === 'production') {
-        console.log('🚀 Running in production mode');
-    } else {
-        console.log('🛠️  Running in development mode');
-    }
-});
+// Start server locally only (Vercel serverless exports the app instead)
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🎵 Music Study Hub server running on port ${PORT}`);
+        console.log(`📱 Open http://localhost:${PORT} in your browser`);
+        console.log(`🔧 Make sure to set up your Spotify app with redirect URI: http://localhost:${PORT}`);
+        
+        if (process.env.NODE_ENV === 'production') {
+            console.log('🚀 Running in production mode');
+        } else {
+            console.log('🛠️  Running in development mode');
+        }
+    });
+}
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
@@ -176,4 +177,5 @@ process.on('SIGINT', () => {
     process.exit(0);
 });
 
-module.exports = app;
+// Export a handler compatible with Vercel serverless
+module.exports = (req, res) => app(req, res);
