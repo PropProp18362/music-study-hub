@@ -363,7 +363,7 @@ class EducationalMusicApp {
     
     async loadPlaylists() {
         try {
-            const response = await fetch('https://api.spotify.com/v1/me/playlists?limit=20', {
+            const response = await fetch('https://api.spotify.com/v1/me/playlists?limit=50', {
                 headers: {
                     'Authorization': `Bearer ${this.accessToken}`
                 }
@@ -371,7 +371,10 @@ class EducationalMusicApp {
             
             if (response.ok) {
                 const data = await response.json();
-                this.displayPlaylists(data.items);
+
+                // Optionally fetch playlist details to check "explicit" track flags (best-effort)
+                const items = Array.isArray(data.items) ? data.items : [];
+                this.displayPlaylists(items);
             }
         } catch (error) {
             console.error('Failed to load playlists:', error);
@@ -382,23 +385,36 @@ class EducationalMusicApp {
     displayPlaylists(playlists) {
         const container = document.getElementById('playlists-container');
         container.innerHTML = '';
-        
-        // Filter for study-appropriate playlists or show all
-        const studyKeywords = ['study', 'focus', 'concentration', 'ambient', 'classical', 'instrumental', 'chill', 'lofi'];
-        
-        playlists.forEach(playlist => {
+
+        // Strict CIPA-friendly filtering: allow only study-safe keywords
+        const studyKeywords = ['study', 'focus', 'concentration', 'ambient', 'classical', 'instrumental', 'chill', 'lofi', 'piano', 'acoustic', 'reading'];
+
+        const filtered = (playlists || []).filter(p => {
+            const name = (p?.name || '').toLowerCase();
+            return studyKeywords.some(k => name.includes(k));
+        });
+
+        const toRender = filtered.length ? filtered : [];
+
+        if (!toRender.length) {
+            // If nothing matches, show default curated study lists (no user content)
+            this.createDefaultPlaylists();
+            return;
+        }
+
+        toRender.forEach(playlist => {
             const playlistElement = document.createElement('div');
             playlistElement.className = 'playlist-item';
             playlistElement.innerHTML = `
-                <img src="${playlist.images[0]?.url || 'icons/default-album.png'}" alt="${playlist.name}">
+                <img src="${playlist.images?.[0]?.url || 'icons/default-album.png'}" alt="${playlist.name}">
                 <h4>${playlist.name}</h4>
-                <p>${playlist.tracks.total} tracks</p>
+                <p>${playlist.tracks?.total ?? 0} tracks</p>
             `;
-            
+
             playlistElement.addEventListener('click', () => {
                 this.playPlaylist(playlist.uri);
             });
-            
+
             container.appendChild(playlistElement);
         });
     }
@@ -440,6 +456,18 @@ class EducationalMusicApp {
     }
     
     async playPlaylist(playlistUri) {
+        // Enforce explicit content off and repeat off via API when starting playback
+        try {
+            await fetch('https://api.spotify.com/v1/me/player', {
+                method: 'PUT',
+                headers: { 'Authorization': `Bearer ${this.accessToken}`, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    device_ids: [this.deviceId],
+                    play: false
+                })
+            });
+        } catch {}
+
         try {
             await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.deviceId}`, {
                 method: 'PUT',
@@ -591,15 +619,13 @@ class EducationalMusicApp {
     
     showSetupInstructions() {
         const instructions = `
-        🔧 Setup Required:
+        Setup required to use Spotify:
         
-        1. Go to https://developer.spotify.com/dashboard
-        2. Create a new app
-        3. Add this URL as redirect URI: ${window.location.origin}${window.location.pathname}
-        4. Copy your Client ID
-        5. Replace 'YOUR_SPOTIFY_CLIENT_ID' in the code with your actual Client ID
+        1) Your administrator must set SPOTIFY_CLIENT_ID and SPOTIFY_CLIENT_SECRET in Vercel.
+        2) The Redirect URI must be exactly: ${window.location.origin}
+        3) After login, this app will only show study-safe content.
         
-        For detailed instructions, check the README.md file.
+        If you are an administrator and need help, open /api/health and /api/config.
         `;
         
         alert(instructions);

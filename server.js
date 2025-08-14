@@ -11,7 +11,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: /^(https?:\/\/([a-z0-9-]+\.)*im-goated\.vercel\.app|http:\/\/localhost:\d+)$/,
+    credentials: false
+}));
 app.use(express.json());
 app.use(express.static('.'));
 
@@ -117,6 +120,11 @@ app.post('/api/refresh', async (req, res) => {
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('X-XSS-Protection', '0');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'autoplay=(self)');
     res.json({ 
         status: 'healthy',
         timestamp: new Date().toISOString(),
@@ -132,8 +140,12 @@ app.get('/api/config', (req, res) => {
     });
 });
 
-// Serve the main app
+// Serve the main app with strict headers
 app.get('/', (req, res) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'autoplay=(self)');
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
