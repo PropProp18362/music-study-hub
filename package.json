@@ -29,6 +29,7 @@
     "dotenv": "^16.3.1",
     "node-fetch": "^2.7.0"
   },
+  "type": "commonjs",
   "devDependencies": {
     "nodemon": "^3.0.1"
   },

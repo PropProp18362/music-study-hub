@@ -1,14 +1,51 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/token.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/refresh.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/config.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/health.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/api/token", "dest": "/api/token.js" },
+    { "src": "/api/refresh", "dest": "/api/refresh.js" },
+    { "src": "/api/config", "dest": "/api/config.js" },
+    { "src": "/api/health", "dest": "/api/health.js" },
     { "src": "/(.*)", "dest": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "autoplay=(self), microphone=(), camera=(), geolocation=(), payment=()"
+        }
+      ]
+    }
   ]
 }

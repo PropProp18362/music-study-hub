@@ -1,7 +1,7 @@
 // Service Worker for Music Study Hub
 // Provides offline functionality and caching for CIPP compliance
 
-const CACHE_NAME = 'music-study-hub-v1.0.0';
+const CACHE_NAME = 'lisd-educational-music-v2.0.0';
 const STATIC_CACHE_URLS = [
     '/',
     '/index.html',
