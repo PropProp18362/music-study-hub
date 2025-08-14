@@ -1,19 +1,4 @@
 {
-  "version": 2,
-  "functions": {
-    "api/token.js": {
-      "runtime": "nodejs18.x"
-    },
-    "api/refresh.js": {
-      "runtime": "nodejs18.x"
-    },
-    "api/config.js": {
-      "runtime": "nodejs18.x"
-    },
-    "api/health.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/token",
