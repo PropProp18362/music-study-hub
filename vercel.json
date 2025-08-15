@@ -17,6 +17,10 @@
     {
       "source": "/api/health",
       "destination": "/api/health.js"
+    },
+    {
+      "source": "/api/content-filter",
+      "destination": "/api/content-filter.js"
     }
   ],
   "headers": [

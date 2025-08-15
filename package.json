@@ -1,7 +1,7 @@
 {
-  "name": "music-study-hub",
-  "version": "1.0.0",
-  "description": "Educational music platform for enhanced learning - CIPP compliant Spotify integration",
+  "name": "lisd-educational-music-platform",
+  "version": "2.0.0",
+  "description": "LISD Official Educational Music Platform - CIPA Compliant Spotify Integration for Academic Enhancement",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -12,6 +12,8 @@
     "deploy": "echo 'Deploy to your preferred hosting platform'"
   },
   "keywords": [
+    "LISD",
+    "Lewisville ISD",
     "education",
     "music",
     "spotify",
@@ -19,7 +21,12 @@
     "focus",
     "productivity",
     "pwa",
-    "school"
+    "school",
+    "CIPA",
+    "compliant",
+    "content-filtering",
+    "educational-technology",
+    "academic-enhancement"
   ],
   "author": "Your Name",
   "license": "MIT",

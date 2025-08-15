@@ -589,3 +589,161 @@ input:focus {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(102, 126, 234, 0.7);
 }
+
+/* CIPA Compliance Styles */
+.compliance-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.badge {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.compliance-status {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.status-indicator {
+    font-size: 0.9em;
+    color: #28a745;
+    font-weight: 600;
+}
+
+.filter-status {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.user-consent {
+    margin: 20px 0;
+}
+
+.consent-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.consent-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #667eea;
+}
+
+.content-analysis {
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    border-left: 4px solid #667eea;
+}
+
+.analysis-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 4px 0;
+    font-size: 0.9em;
+}
+
+.analysis-label {
+    font-weight: 600;
+    color: #333;
+}
+
+#educational-value {
+    color: #28a745;
+    font-weight: 600;
+}
+
+#content-status {
+    color: #28a745;
+    font-weight: 600;
+}
+
+#educational-context {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Enhanced Educational Notice */
+.educational-notice {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: left;
+}
+
+.notice-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.notice-header .icon {
+    font-size: 1.5em;
+}
+
+.notice-header strong {
+    color: #667eea;
+    font-size: 1.1em;
+}
+
+/* Login button enhancement */
+.login-button {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    width: 100%;
+    margin: 20px 0;
+}
+
+.login-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+.login-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Header enhancements */
+.header-left h1 {
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+.study-mode {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9em;
+    font-weight: 500;
+}

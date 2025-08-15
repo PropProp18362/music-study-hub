@@ -1,13 +1,13 @@
 {
-  "name": "Music Study Hub - Educational Platform",
-  "short_name": "Study Hub",
-  "description": "Educational music platform for enhanced learning and focus",
+  "name": "LISD Educational Music Platform - CIPA Compliant",
+  "short_name": "LISD Music",
+  "description": "Official Lewisville ISD educational music platform with CIPA compliance and content filtering",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#667eea",
   "theme_color": "#667eea",
   "orientation": "portrait-primary",
-  "categories": ["education", "music", "productivity"],
+  "categories": ["education", "music", "productivity", "school", "study"],
   "lang": "en-US",
   "dir": "ltr",
   "icons": [
@@ -90,5 +90,5 @@
   ],
   "prefer_related_applications": false,
   "scope": "/",
-  "id": "music-study-hub"
+  "id": "lisd-educational-music-platform"
 }
